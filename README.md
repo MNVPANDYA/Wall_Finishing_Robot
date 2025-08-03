@@ -56,6 +56,8 @@ Safety clearance: Configurable, default 5cm
 
 ## Usage
 
+<img src="images/system_ui.png" alt="Robot Animation" width="auto">
+
 1. Define wall dimensions and obstacles
 2. Set tool width and safety parameters
 3. Generate trajectory using planning algorithm
