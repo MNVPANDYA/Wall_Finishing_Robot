@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Robot Wall Painter Control</title>
+    <link rel="stylesheet" href="/frontend/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>🤖 Autonomous Wall Finishing Robot</h1>
+      <p>Advanced Path Planning & Visualization System</p>
+    </header>
+    <main>
+      <div class="panel" id="controls">
+        <h2>🎛️ Control Panel</h2>
+        
+        <div class="form-section">
+          <h3>📐 Wall Dimensions (meters)</h3>
+          <div class="input-group">
+            <label for="wall-width">Width:</label>
+            <input type="number" id="wall-width" value="5" step="0.1" min="0.1" max="50" />
+            <span class="unit">m</span>
+          </div>
+          <div class="input-group">
+            <label for="wall-height">Height:</label>
+            <input type="number" id="wall-height" value="5" step="0.1" min="0.1" max="20" />
+            <span class="unit">m</span>
+          </div>
+        </div>
+
+        <div class="form-section tool-section">
+          <h3>🔧 Tool Configuration</h3>
+          <div class="input-group tool-input-group">
+            <label for="tool-width">Tool Width:</label>
+            <input type="number" id="tool-width" value="0.2" step="0.05" min="0.05" max="1.0" />
+            <span class="unit">m</span>
+          </div>
+          <small>🎨 Tool width affects coverage pattern and painting efficiency</small>
+          <div class="tool-preview">
+            <span class="tool-indicator-preview" id="tool-preview">Tool Coverage Area</span>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>🚧 Obstacles</h3>
+          <div id="obstacles-list"></div>
+          <button id="add-obstacle-btn" class="add-btn">➕ Add Obstacle</button>
+        </div>
+
+        <button id="plan-btn" class="primary-btn">🚀 Plan New Trajectory</button>
+
+        <div class="form-section playback-section">
+          <h3>📋 Playback Existing Plan</h3>
+          <select id="trajectories-select">
+            <option>No plans available</option>
+          </select>
+          <button id="visualize-btn" class="secondary-btn">🎬 Load & Visualize</button>
+        </div>
+      </div>
+
+      <div class="panel" id="visualization">
+        <h2>📊 Visualization</h2>
+        <div id="status-message">Enter dimensions and plan a trajectory to begin.</div>
+        <div class="svg-container">
+          <svg id="drawing-canvas" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+        <div class="legend">
+          <div class="legend-item">
+            <div class="legend-color wall-color"></div>
+            <span>Wall Surface</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color obstacle-color"></div>
+            <span>Obstacles</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color robot-color"></div>
+            <span>Robot Position</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color paint-color"></div>
+            <span>Paint Coverage</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color path-color"></div>
+            <span>Movement Path</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Update tool preview when tool width changes
+      document.getElementById('tool-width').addEventListener('input', function(e) {
+        const toolWidth = parseFloat(e.target.value);
+        const preview = document.getElementById('tool-preview');
+        const size = Math.max(20, Math.min(100, toolWidth * 100)); // Scale for visual
+        preview.style.width = size + 'px';
+        preview.style.height = size + 'px';
+        preview.textContent = `${toolWidth}m x ${toolWidth}m`;
+      });
+      
+      // Initialize tool preview
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('tool-width').dispatchEvent(new Event('input'));
+      });
+    </script>
+    <script src="/frontend/script.js"></script>
+  </body>
+</html>
