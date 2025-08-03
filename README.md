@@ -72,3 +72,30 @@ Safety clearance: Configurable, default 5cm
 - SQLite (storage)
 
 Built for industrial painting, coating, and surface treatment applications.
+
+## Installation & Setup
+
+### Prerequisites
+- Python 3.8 or higher
+- pip package manager
+
+### Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Start the Application
+```bash
+uvicorn app:app
+```
+
+The server will start on `http://localhost:8000`
+
+### Access the Interface
+Open your browser and navigate to:
+```
+http://localhost:8000
+```
+
+The web interface will load automatically from the `/frontend` directory.
+
